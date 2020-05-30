@@ -1,8 +1,17 @@
-## Back Givyoo
+## Back Nrgybix
 
 Team : 
-- Gregory
-- Christelle
-- Elodie
-- Mathilde
-- Pierre
+- Johanna
+- Chloé
+- Michaël
+- Benoit
+- Enzo
+
+
+## Getting started
+
+```bash
+$ cd my-app
+$ npm start
+$ npm install
+```
