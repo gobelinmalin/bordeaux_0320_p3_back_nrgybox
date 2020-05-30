@@ -1,0 +1,29 @@
+{
+  "name": "bordeaux_0320_p3_back_nrgybox",
+  "version": "1.0.0",
+  "description": "Team :  - Johanna - Chloé - Benoit - Enzo - Michaël",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gobelinmalin/bordeaux_0320_p3_back_nrgybox.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gobelinmalin/bordeaux_0320_p3_back_nrgybox/issues"
+  },
+  "homepage": "https://github.com/gobelinmalin/bordeaux_0320_p3_back_nrgybox#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.4",
+    "pool": "^0.4.1"
+  }
+}
