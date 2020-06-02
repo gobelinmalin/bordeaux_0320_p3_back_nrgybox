@@ -6,7 +6,7 @@ dotenv.config();
 var pool = mysql.createPool({
   host: process.env.DOKKU_HOST,
   user: process.env.DOKKU_USER,
-  password: process.env_DOKKU_PASSWORD,
+  password: process.env.DOKKU_PASSWORD,
   database: process.env.DOKKU_DATABASE
 });
 module.exports = {
