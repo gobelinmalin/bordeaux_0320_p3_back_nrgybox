@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const connection = require("../config");
 
-// route post de program lié à spotlight
+// Poster un point lumineux
 router.post('/spotlight', (req, res) => {
   const formBody = req.body;
 
@@ -19,7 +19,7 @@ router.post('/spotlight', (req, res) => {
   })
 });
 
-// Test Johanna route post : '/programms/forecast'
+// Poster une prévision lumineuse
 router.post("/forecast", (req, res) => {
   const formBody = req.body;
 
@@ -56,7 +56,7 @@ router.post("/forecast", (req, res) => {
 //   })
 // });
 
-// test 
+// récupérer la prévision lumineuse d'une lampe
 router.get('/:idProgram/forecast/:idForecast/spotlight/:idSpotlight', (req, res) => {
   const idProgram = req.params.idProgram;
   const idForecast = req.params.idForecast;
@@ -71,6 +71,44 @@ router.get('/:idProgram/forecast/:idForecast/spotlight/:idSpotlight', (req, res)
     }
     else{
       res.sendStatus(200);
+    }
+  })
+});
+
+// mettre à jour une prévision lumineuse
+router.put("/:idProgram/forecasts/:idForecast", (req, res) => {
+  const data = req.body;
+  const idProgram = req.params.idProgram;
+  const idForecast = req.params.idForecast;
+
+  connection.query('UPDATE program AS p JOIN program_forecast_lighting AS pfl ON pfl.program_id = p.id JOIN forecast_lighting AS fl ON fl.id = pfl.forecast_lighting_id SET ? WHERE p.id = ? AND fl.id = ?', [data, idProgram, idForecast], (err, results) => {
+    if(err){
+      res.status(500).json({
+        error: err.message,
+        sql: err.sql
+      });
+    }
+    else{
+      res.sendStatus(200);
+    }
+    
+  });
+
+});
+
+//supprimer une prévision lumineuse
+router.delete('/:idProgram/forecasts/:idForecast', (req, res) => {
+  const idProgram = req.params.idProgram;
+  const idForecast = req.params.idForecast;
+  connection.query('DELETE FROM program_forecast_lighting WHERE id = ?', [idProgram, idForecast], (err, results) => {
+    if(err){
+      res.json({
+        error: err.message,
+        sql: err.sql
+      });
+    }
+    else{
+      res.status(200).send('La prévision lumineuse a bien été supprimé');
     }
   })
 });
