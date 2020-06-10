@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const connection = require("../config");
 
+
 // Post a spotlight
 router.post('/spotlight', (req, res) => {
   const formBody = req.body;
@@ -71,6 +72,7 @@ router.put("/:idProgram/forecasts/:idForecast", (req, res) => {
       });
     }
     else{
+
       res.sendStatus(200);
     }
   });
@@ -94,3 +96,4 @@ router.delete('/:idProgram/forecasts/:idForecast', (req, res) => {
 });
 
 module.exports = router;
+
