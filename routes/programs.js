@@ -91,9 +91,7 @@ router.put("/:idProgram/forecasts/:idForecast", (req, res) => {
     else{
       res.sendStatus(200);
     }
-    
   });
-
 });
 
 //supprimer une prévision lumineuse
