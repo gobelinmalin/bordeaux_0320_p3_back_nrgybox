@@ -13,4 +13,32 @@ router.get("/", (req, res) => {
   });
 });
 
+//efface un utilisateur//
+router.delete('/:id', (req, res) => {
+  const userId = req.params.id;
+  connection.query('DELETE FROM user WHERE id= ?', userId, err => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Erreur lors de la supression d'un utilisateur");
+    } else {
+      res.sendStatus(200);
+    }
+  });
+});
+
+router.post('/:id/forget', (req, res) => {
+  const userId = req.params.id;
+  const formData = req.body;
+  connection.query('UPDATE user SET ? WHERE id = ?', [formData, userId], err => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Erreur lors de la modification de l'utilisateur");
+    } else {
+      res.sendStatus(200);
+    }
+  });
+});
+
+
 module.exports = router;
+
