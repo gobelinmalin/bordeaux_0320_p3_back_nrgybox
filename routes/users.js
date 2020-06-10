@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const connection = require("../config");
 
-// GET ALL USER
+// Get all user
 router.get("/", (req, res) => {
   connection.query("SELECT * from user", (err, results) => {
     if (err) {
@@ -15,9 +15,9 @@ router.get("/", (req, res) => {
   });
 });
 
+
 // GET ONE USER
 router.get("/:id", (req, res) => {
-
   const idUser = req.params.id
   
   connection.query("SELECT * from user WHERE id = ?",[idUser], (err, results) => {
@@ -30,7 +30,6 @@ router.get("/:id", (req, res) => {
 });
 
 router.get("/:id/postal", (req, res) => {
-
   const idPostal = req.params.id;
 
   // connection à la base de données, et recuperation resultat
@@ -142,7 +141,27 @@ router.put('/:id', (req, res) => {
     } else {
       res.sendStatus(200);
     }
-  });
+  })
+  
+ });
+
+// Get the geolocation of a user
+router.get('/:idUser/geolocations/:idGeoloc', (req, res) => {
+  const idUser = req.params.idUser;
+  const idGeoloc = req.params.idGeoloc;
+
+  connection.query('SELECT * FROM user_geolocation AS ug JOIN user AS u ON ug.user_id = u.id JOIN geolocation AS g ON ug.gps_id = g.id WHERE u.id = ? AND g.id = ?', [idUser, idGeoloc], (err, results) => {
+    if(err){
+      res.status(500).json({
+        error: err.message,
+        sql: err.sql
+      });
+    }
+    else{
+      res.sendStatus(200);
+    }
+  })
+
 });
 
 module.exports = router;
