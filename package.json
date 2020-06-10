@@ -26,6 +26,7 @@
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
     "nodemon": "^2.0.4",
-    "pool": "^0.4.1"
+    "pool": "^0.4.1",
+    "sib-api-v3-sdk": "^7.2.3"
   }
 }
