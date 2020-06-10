@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const connection = require("../config");
 
-// Test
+// Get all user
 router.get("/", (req, res) => {
   connection.query("SELECT * from user", (err, results) => {
     if (err) {
@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
   });
 });
 
-// récupérer la géolocalisation d'un utilisateur
+// Get the geolocation of a user
 router.get('/:idUser/geolocations/:idGeoloc', (req, res) => {
   const idUser = req.params.idUser;
   const idGeoloc = req.params.idGeoloc;

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const connection = require("../config");
 
-// Poster un point lumineux
+// Post a spotlight
 router.post('/spotlight', (req, res) => {
   const formBody = req.body;
 
@@ -19,7 +19,7 @@ router.post('/spotlight', (req, res) => {
   })
 });
 
-// Poster une prévision lumineuse
+// Post a forecast lighting
 router.post("/forecast", (req, res) => {
   const formBody = req.body;
 
@@ -38,25 +38,7 @@ router.post("/forecast", (req, res) => {
 
 });
 
-// route post de la table de jointure program_forecast_lighting (liaison id program + id forecast)
-// router.post('/:idProgram/forecast/:idForecast', (req, res) => {
-//   const idProgram = req.params.idProgram;
-//   const idForecast = req.params.idForecast;
-
-//   connection.query('INSERT INTO program_forecast_lighting SET program.id = ? AND forecast_lighting.id = ?', [idProgram, idForecast], (err, results) => {
-//     if(err){
-//       res.status(500).json({
-//         error: err.message,
-//         sql: err.sql
-//       });
-//     }
-//     else{
-//       res.sendStatus(200);
-//     }
-//   })
-// });
-
-// récupérer la prévision lumineuse d'une lampe
+// Get the forecast lighting of a spotlight
 router.get('/:idProgram/forecast/:idForecast/spotlight/:idSpotlight', (req, res) => {
   const idProgram = req.params.idProgram;
   const idForecast = req.params.idForecast;
@@ -75,7 +57,7 @@ router.get('/:idProgram/forecast/:idForecast/spotlight/:idSpotlight', (req, res)
   })
 });
 
-// mettre à jour une prévision lumineuse
+// Update a forecast lighting
 router.put("/:idProgram/forecasts/:idForecast", (req, res) => {
   const data = req.body;
   const idProgram = req.params.idProgram;
@@ -94,7 +76,7 @@ router.put("/:idProgram/forecasts/:idForecast", (req, res) => {
   });
 });
 
-//supprimer une prévision lumineuse
+// Delete a forecast lighting
 router.delete('/:idProgram/forecasts/:idForecast', (req, res) => {
   const idProgram = req.params.idProgram;
   const idForecast = req.params.idForecast;
