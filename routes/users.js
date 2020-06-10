@@ -68,9 +68,9 @@ router.post("/", (req, res) => {
 
 // Token verify
 router.post('/profile', verifyToken, (req,res) => {
-  jwt.verify(req.token, 'secretKey', (err, dataUser) => {    //Secret key est une variable d'envoronnement > à ajouter dans .env
+  jwt.verify(req.token, 'secretKey', (err, dataUser) => {    //Secret key is environment var > add in .env
     if(err) {
-      res.status(401).send('token non valide')    //utilisé pour l'expiration
+      res.status(401).send('token non valide')    //Use for expiration
     } else {
       res.json(dataUser);
     }
