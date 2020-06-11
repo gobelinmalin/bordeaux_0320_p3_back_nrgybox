@@ -4,14 +4,10 @@ const connection = require("../config");
 
 // POST SEND
 router.post('/', (req, res) => {
-
     const formData = req.body;
-  
     // connexion à la base de données, et insertion de l'user
     connection.query('INSERT INTO user SET ?', formData, (err, results) => {
-  
       if (err) {
-        console.log(err);
         res.status(500).send("Erreur lors de la sauvegarde d'un utilisateur");
       } else {
         res.sendStatus(200);
