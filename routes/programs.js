@@ -2,6 +2,23 @@ const express = require("express");
 const router = express.Router();
 const connection = require("../config");
 
+// get the dates in a special format in programs table
+router.get('/', (req, res) => {
+  connection.query('SELECT DATE_FORMAT(date_start, "%H:%i") AS date_start, DATE_FORMAT(date_end, "%H:%i") AS date_end FROM program', (err, results) => {
+    if(err){
+      res.status(500).json({
+        error: err.message,
+        sql: err.sql
+      });
+    }
+    else{
+      res.status(200).json(results);
+    }
+  });
+
+
+});
+
 // Post a spotlight
 router.post('/spotlight', (req, res) => {
   const formBody = req.body;
