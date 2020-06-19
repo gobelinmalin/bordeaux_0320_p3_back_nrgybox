@@ -12,4 +12,5 @@ router.get("/geolocation/:id", (req, res) => {
       }
     });
   });
+  
 module.exports = router;
