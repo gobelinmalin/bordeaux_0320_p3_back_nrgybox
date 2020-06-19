@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
       res.status(200).json(results);
     }
   });
-
+});
 
 // Get all program
 router.get("/", (req, res) => {
@@ -127,4 +127,3 @@ router.delete('/:idProgram/forecasts/:idForecast', (req, res) => {
 });
 
 module.exports = router;
-
