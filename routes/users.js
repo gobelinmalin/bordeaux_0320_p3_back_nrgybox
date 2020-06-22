@@ -3,8 +3,7 @@ const router = express.Router();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const connection = require("../config");
-const bcrypt = require("bcrypt");
-const jwt = require('jsonwebtoken');
+
 
 // get back all users
 router.get("/", (req, res) => {

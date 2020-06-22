@@ -25,6 +25,7 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
+    "nodemailer": "^6.4.10",
     "nodemon": "^2.0.4",
     "pool": "^0.4.1",
     "sib-api-v3-sdk": "^7.2.3"
