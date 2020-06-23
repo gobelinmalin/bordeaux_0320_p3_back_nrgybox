@@ -21,6 +21,9 @@ router.post("/", (req, res) => {
   const hash = bcrypt.hashSync(req.body.password, 10);
   const formData = {
     email: req.body.email,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    // city: req.body.city,
     password: hash
     // had all info about the user (firstname, lastname etc.)
   }; 
@@ -61,6 +64,7 @@ router.get("/:id", (req, res) => {
 //Login user - Creation token
  router.post('/login', (req, res) => {
   const formData = {
+    firstname: req.body.firstname,
     email: req.body.email,
     password: req.body.password
   };
@@ -102,7 +106,7 @@ router.get("/:id/postal", (req, res) => {
 });
 
 // Token verify
-router.post('/profile', verifyToken, (req,res) => {
+router.post('/profil', verifyToken, (req,res) => {
   jwt.verify(req.token, 'secretKey', (err, dataUser) => {    //Secret key is environment var > add in .env
     if(err) {
       res.status(401).send('token non valide')    //Use for expiration
