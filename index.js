@@ -15,5 +15,5 @@ app.listen(port, (err) => {
   if (err) {
     throw new Error("There is an error");
   }
-  console.log(`Welcom to the port ${port}`);
+  console.log(`Welcome to the port ${port}`);
 });
