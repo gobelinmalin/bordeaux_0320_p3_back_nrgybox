@@ -2,6 +2,25 @@ const express = require("express");
 const router = express.Router();
 const connection = require("../config");
 
+// get the dates in a special format in programs table
+router.get('/', (req, res) => {
+  connection.query(`
+  SELECT DATE_FORMAT(date_start, "%H:%i") AS date_start,
+  DATE_FORMAT(date_end, "%H:%i") AS date_end
+  FROM program
+  WHERE date BETWEEN DATE_SUB(NOW(), INTERVAL 1 DAY) AND DATE_ADD(NOW(), INTERVAL 7 DAY)`, (err, results) => {
+    if(err){
+      res.status(500).json({
+        error: err.message,
+        sql: err.sql
+      });
+    }
+    else{
+      res.status(200).json(results);
+    }
+  });
+});
+
 // Get all program
 router.get("/", (req, res) => {
 
@@ -112,4 +131,3 @@ router.delete('/:idProgram/forecasts/:idForecast', (req, res) => {
 });
 
 module.exports = router;
-

@@ -155,5 +155,7 @@ router.get('/:idUser/geolocations/:idGeoloc', (req, res) => {
   })
 });
 
+
+
 module.exports = router;
 
