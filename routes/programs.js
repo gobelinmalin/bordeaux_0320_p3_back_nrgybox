@@ -2,13 +2,17 @@ const express = require("express");
 const router = express.Router();
 const connection = require("../config");
 
+const getProgramFormat = `SELECT id, DATE_FORMAT(date, "%Y-%m-%d") AS date,
+date_start AS full_date_start,
+date_end AS full_date_end,
+DATE_FORMAT(date_start, "%H:%i") AS date_start,
+DATE_FORMAT(date_end, "%H:%i") AS date_end
+FROM program `;
+
 // get the dates in a special format in programs table
 router.get('/', (req, res) => {
-  connection.query(`
-  SELECT DATE_FORMAT(date_start, "%H:%i") AS date_start,
-  DATE_FORMAT(date_end, "%H:%i") AS date_end
-  FROM program
-  WHERE date BETWEEN DATE_SUB(NOW(), INTERVAL 1 DAY) AND DATE_ADD(NOW(), INTERVAL 7 DAY)`, (err, results) => {
+  const whereProgram = 'WHERE date BETWEEN DATE_SUB(NOW(), INTERVAL 1 DAY) AND DATE_ADD(NOW(), INTERVAL 7 DAY)';
+  connection.query(getProgramFormat + whereProgram, (err, results) => {
     if(err){
       res.status(500).json({
         error: err.message,
@@ -31,6 +35,19 @@ router.get("/", (req, res) => {
         res.json(results);
       }
     });
+});
+
+// Get all program for one spot light
+router.get("/spotlights/:id", (req, res) => {
+  const idSpot = req.params.id;
+
+  connection.query("SELECT * FROM program WHERE spot_light_id = ?", [idSpot], (err, results) => {
+    if (err) {
+      res.status(500).send(err);
+    } else {
+      res.json(results);
+    }
+  });
 });
 
 // Get one programme by ID
@@ -91,6 +108,28 @@ router.get('/:idProgram/forecast/:idForecast/spotlight/:idSpotlight', (req, res)
     }
     else{
       res.sendStatus(200);
+    }
+  })
+});
+
+// update and get the new dates in the program
+router.put('/:id', (req, res) => {
+  const dataUser = req.body;
+  const idParams = req.params.id;
+  const whereProgram = 'WHERE id = ?';
+  connection.query('UPDATE program SET ? WHERE id = ?', [dataUser ,idParams], (err, _) => {
+    if(err){
+      return res.status(500).send('Impossible de mettre à jour le programme');
+    }
+    else{
+      connection.query(getProgramFormat + whereProgram, [idParams], (err2, results) => {
+        if(err2){
+          res.status(500).send('Erreur lors de la récupération des données');
+        }
+        else{
+          return res.status(200).json(results);
+        }
+      })
     }
   })
 });
