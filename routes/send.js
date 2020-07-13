@@ -8,10 +8,10 @@ let transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 587,
   secure: false, // upgrade later with STARTTLS
-  auth: {
-    user: process.env.NODE_ENV_USER,
-    pass: process.env.NODE_ENV_PASS,
-  }
+  // auth: {
+  //   user: process.env.NODE_ENV_USER,
+  //   pass: process.env.NODE_ENV_PASS,
+  // }
 });
 
 transporter.verify((err, _) => {
