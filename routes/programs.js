@@ -33,9 +33,6 @@ router.get('/', (req, res) => {
           sql: err.sql
         });
       }
-      else if(results.length === 0){
-        res.status(404).send('Aucun programme ne correspond à votre ville');
-      }
       else{
         res.status(200).json(results);
       }
