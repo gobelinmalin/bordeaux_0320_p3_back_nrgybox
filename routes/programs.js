@@ -99,6 +99,30 @@ const idProgramm = req.params.id
   });
 });
 
+//post programm (beggining, end)
+router.post('/', (req, res)=> {
+  const formBody = req.body;
+
+  connection.query('INSERT INTO program SET ?', [formBody], (err, results)=> {
+    if(err){
+      res.status(500).json({
+        error: err.message,
+        sql: err.sql
+      });
+    }
+    else{
+      connection.query(getProgramFormat, (err2, results2) => {
+        if(err2){
+          res.status(500).send('Erreur lors de l\'envoie des données');
+        }
+        else{
+          return res.status(200).json(results2);
+        }
+      })
+    }
+  })
+});
+
 // Post a spotlight
 router.post('/spotlight', (req, res) => {
   const formBody = req.body;
