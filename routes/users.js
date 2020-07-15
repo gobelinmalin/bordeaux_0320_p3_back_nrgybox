@@ -80,7 +80,7 @@ router.get("/:id", (req, res) => {
             res.status(500).send('Token non crée');
           }
           else{
-            res.json({ token });
+            res.json({ token, idUser: user[0].id, email: user[0].email });
           }
         })
       }
@@ -154,7 +154,6 @@ router.get('/:idUser/geolocations/:idGeoloc', (req, res) => {
     }
   })
 });
-
 
 
 module.exports = router;
