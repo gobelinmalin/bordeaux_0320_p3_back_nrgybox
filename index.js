@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const api = require("./routes");
 const bodyParser = require("body-parser");
-const port = process.env.DOOKU_PORT || 3000;
+const port = process.env.PORT || 3000;
 const cors = require("cors");
 app.use(cors());
 
