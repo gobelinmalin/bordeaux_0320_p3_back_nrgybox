@@ -5,7 +5,7 @@ const connection = require("../config");
 // GET POSTAL
 router.get("/", (req, res) => {
   const idPostal = req.params.id;
-  // connection à la base de données, et recuperation resultat
+  // Connect to the database and get results
   connection.query('SELECT * FROM postal WHERE id = ?', [idPostal], (err, results) => {
     if (err || results.length === 0) {
       res.status(404).json({error: "Utilisateur introuvable"});

@@ -67,7 +67,7 @@ router.get("/", (req, res) => {
 
     connection.query("SELECT * FROM program",  (err, results) => {
       if (err) {
-        res.status(500).send(err);
+        res.status(500).send('Erreur lors de la récupération des données');
       } else {
         res.json(results);
       }
@@ -80,7 +80,7 @@ router.get("/spotlights/:id", (req, res) => {
 
   connection.query("SELECT * FROM program WHERE spot_light_id = ?", [idSpot], (err, results) => {
     if (err) {
-      res.status(500).send(err);
+      res.status(500).send('Erreur lors de la récupération des données');
     } else {
       res.json(results);
     }
@@ -92,7 +92,7 @@ router.get("/:id", (req, res) => {
 const idProgramm = req.params.id
   connection.query("SELECT * FROM program WHERE id = ?", [idProgramm],  (err, results) => {
     if (err) {
-      res.status(500).send(err);
+      res.status(500).send('Erreur lors de la récupération des données');
     } else {
       res.json(results);
     }
