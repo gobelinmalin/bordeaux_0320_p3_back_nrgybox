@@ -13,9 +13,9 @@ let transporter = nodemailer.createTransport({
 
 transporter.verify((err, _) => {
   if (err) {
-    res.status(500).send('Erreur lors de la récupération des données');
+    console.log('Erreur lors de la récupération des données');
   } else {
-    res.status(200).send('Server is ready to take messages');
+    console.log('Server is ready to take messages');
   }
 });
  
