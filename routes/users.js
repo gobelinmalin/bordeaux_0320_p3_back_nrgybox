@@ -24,11 +24,10 @@ router.post("/", (req, res) => {
     password: hash,
     firstname: req.body.firstname,
     lastname: req.body.lastname
-    // had all info about the user (firstname, lastname etc.)
   }; 
   connection.query("INSERT INTO user SET ?", [formData], (err, result) => {
     if (err) {
-      res.status(500).send(err);
+      res.status(500).send('Erreur lors de l\'insertion d\'un utilisateur');
     } else {
       res.sendStatus(200);
     }
@@ -40,7 +39,6 @@ router.delete('/:id', (req, res) => {
   const userId = req.params.id;
   connection.query('DELETE FROM user WHERE id= ?', userId, err => {
     if (err) {
-      console.log(err);
       res.status(500).send("Erreur lors de la supression d'un utilisateur");
      } else {
       res.sendStatus(200);
@@ -77,7 +75,7 @@ router.get("/:id", (req, res) => {
       }
       else{
         // 'secretKey' will be in .env file => here, process.env.TOKEN_SECRET_KEY
-        jwt.sign({ user }, 'secretKey', (err, token) => {
+        jwt.sign({ user }, process.env.DOKKU_SECRET_KEY, (err, token) => {
           if(err){
             res.status(500).send('Token non crée');
           }
@@ -105,7 +103,7 @@ router.get("/:id/postal", (req, res) => {
 
 // Token verify
 router.post('/profile', verifyToken, (req,res) => {
-  jwt.verify(req.token, 'secretKey', (err, dataUser) => {    //Secret key is environment var > add in .env
+  jwt.verify(req.token, process.env.DOKKU_SECRET_KEY, (err, dataUser) => {    //Secret key is environment var > add in .env
     if(err) {
       res.status(401).send('token non valide')    //Use for expiration
     } else {
@@ -130,7 +128,7 @@ function verifyToken(req, res, next) {
 router.put('/:id', (req, res) => {
   const idUser = req.params.id;
   const formData = req.body;
-  // connection à la base de données, et insertion de modification d'un user
+  // connect to database and insert user
   connection.query('UPDATE user SET ? WHERE id = ?', [formData, idUser], err => {
     if (err) {
       res.status(500).send("Erreur lors de la modification d'un utilisateur");
@@ -156,7 +154,6 @@ router.get('/:idUser/geolocations/:idGeoloc', (req, res) => {
     }
   })
 });
-
 
 
 module.exports = router;

@@ -6,7 +6,7 @@ router.get("/:id/geolocations/:id", (req, res) => {
     const idParams = req.params.id
   connection.query("SELECT * FROM user_geolocation WHERE id = ?", idParams,  (err, results) => {
     if (err) {
-      res.status(500).send(err);
+      res.status(500).send('Impossible de récupérer cette adresse');
     } else {
       res.sendStatus(200);
     }

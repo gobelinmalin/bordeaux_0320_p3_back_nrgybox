@@ -2,23 +2,20 @@ const express = require("express");
 const router = express.Router();
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
+const { restart } = require("nodemon");
 dotenv.config();
 
 let transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 587,
-  secure: false, // upgrade later with STARTTLS
-  // auth: {
-  //   user: process.env.NODE_ENV_USER,
-  //   pass: process.env.NODE_ENV_PASS,
-  // }
+  secure: false, 
 });
 
 transporter.verify((err, _) => {
   if (err) {
-    console.log(err);
+    res.status(500).send('Erreur lors de la récupération des données');
   } else {
-    console.log('Server is ready to take messages');
+    res.status(200).send('Server is ready to take messages');
   }
 });
  
