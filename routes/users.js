@@ -21,7 +21,9 @@ router.post("/", (req, res) => {
   const hash = bcrypt.hashSync(req.body.password, 10);
   const formData = {
     email: req.body.email,
-    password: hash
+    password: hash,
+    firstname: req.body.firstname,
+    lastname: req.body.lastname
     // had all info about the user (firstname, lastname etc.)
   }; 
   connection.query("INSERT INTO user SET ?", [formData], (err, result) => {
@@ -80,7 +82,7 @@ router.get("/:id", (req, res) => {
             res.status(500).send('Token non crée');
           }
           else{
-            res.json({ token, idUser: user[0].id, email: user[0].email });
+            res.json({ token, idUser: user[0].id, email: user[0].email , lastname: user[0].lastname, firstname: user[0].firstname});
           }
         })
       }
