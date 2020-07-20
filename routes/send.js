@@ -10,6 +10,7 @@ let transporter = nodemailer.createTransport({
   port: 587,
   secure: false,
   auth: {
+    type: 'OAuth2',
     user: process.env.NODE_ENV_USER, // compte expéditeur
     pass: process.env.NODE_ENV_PASS // mot de passe du compte expéditeur
   },
