@@ -30,6 +30,6 @@
     "nodemon": "^2.0.4",
     "pool": "^0.4.1",
     "sib-api-v3-sdk": "^7.2.3",
-    "validator": "^13.1.1"
+    "validator": "^13.7.0"
   }
 }
